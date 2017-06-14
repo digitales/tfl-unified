@@ -1,0 +1,32 @@
+{
+    "name": "abulia/tfl-unified",
+    "description": "Laravel package for accessing TFL's unified API",
+    "license": "MIT",
+    "keywords": ["laravel", "tfl"],
+    "authors": [
+        {
+            "name": "Steve Hayes",
+            "email": "steve@abulia.co.uk"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "illuminate/support": "~5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Abulia\\TflUnified\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.2"
+    }
+}
