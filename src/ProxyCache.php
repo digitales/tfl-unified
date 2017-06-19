@@ -11,13 +11,6 @@ use Abulia\TflUnified\Wrappers\Wrapper;
 class ProxyCache
 {
     /**
-     * Set of time/type wrappers.
-     *
-     * @var array
-     */
-    protected static $cachedProxies = [];
-
-    /**
      * Cache timeout.
      *
      * @var
@@ -36,70 +29,10 @@ class ProxyCache
      * @param $cacheDuration
      * @param Wrapper $wrapperClass
      */
-    private function __construct($cacheDuration, Wrapper $wrapperClass)
+    public function __construct($cacheDuration, Wrapper $wrapperClass)
     {
         $this->cacheDuration = $cacheDuration;
         $this->wrapperClass = $wrapperClass;
-    }
-
-    /**
-     * Get instance for time/type.
-     *
-     * @param $cacheDuration
-     * @param Wrapper $wrapperClass
-     * @return mixed
-     */
-    public static function getInstance($cacheDuration, Wrapper $wrapperClass)
-    {
-        if ( ! static::hasCachedProxy($cacheDuration, $wrapperClass)) {
-            static::addCachedProxy(new static($cacheDuration, $wrapperClass));
-        }
-
-        return static::getCachedProxy($cacheDuration, $wrapperClass);
-    }
-
-    /**
-     * Check proxy exists.
-     *
-     * @param $cacheDuration
-     * @param $wrapperClass
-     * @return bool
-     */
-    protected static function hasCachedProxy($cacheDuration, $wrapperClass)
-    {
-        return isset(static::$cachedProxies[get_class($wrapperClass)][$cacheDuration]);
-    }
-
-    /**
-     * Get cached proxy.
-     *
-     * @param $cacheDuration
-     * @param $wrapperClass
-     * @return mixed
-     */
-    protected static function getCachedProxy($cacheDuration, $wrapperClass)
-    {
-        return static::$cachedProxies[get_class($wrapperClass)][$cacheDuration];
-    }
-
-    /**
-     * Add a time/type caching proxy.
-     *
-     * @param ProxyCache $proxyCache
-     */
-    protected static function addCachedProxy(ProxyCache $proxyCache)
-    {
-        static::$cachedProxies[$proxyCache->proxyingFor()][$proxyCache->cacheDuration] = $proxyCache;
-    }
-
-    /**
-     * Remove specific proxy.
-     *
-     * @param ProxyCache $proxyCache
-     */
-    protected static function removeCachedProxy(ProxyCache $proxyCache)
-    {
-        unset(static::$cachedProxies[$proxyCache->proxyingFor()][$proxyCache->cacheDuration]);
     }
 
     /**

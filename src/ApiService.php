@@ -2,20 +2,6 @@
 
 namespace Abulia\TflUnified;
 
-use Abulia\TflUnified\Wrappers\AccidentStatsWrapper;
-use Abulia\TflUnified\Wrappers\AirQualityWrapper;
-use Abulia\TflUnified\Wrappers\BikePointWrapper;
-use Abulia\TflUnified\Wrappers\CabwiseWrapper;
-use Abulia\TflUnified\Wrappers\JourneyWrapper;
-use Abulia\TflUnified\Wrappers\LineWrapper;
-use Abulia\TflUnified\Wrappers\ModeWrapper;
-use Abulia\TflUnified\Wrappers\OccupancyWrapper;
-use Abulia\TflUnified\Wrappers\PlaceWrapper;
-use Abulia\TflUnified\Wrappers\RoadWrapper;
-use Abulia\TflUnified\Wrappers\SearchWrapper;
-use Abulia\TflUnified\Wrappers\StopPointWrapper;
-use Abulia\TflUnified\Wrappers\TravelTimeWrapper;
-use Abulia\TflUnified\Wrappers\VehicleWrapper;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Logging\Log;
 use Abulia\TflUnified\Swagger\ApiException;
@@ -29,6 +15,8 @@ use Illuminate\Contracts\Cache\Repository as Cache;
 class ApiService
 {
     /**
+     * Available APIs
+     *
      * @var array
      */
     public static $apiNames = [
@@ -70,13 +58,6 @@ class ApiService
     protected $logger;
 
     /**
-     * Current cache duration.
-     *
-     * @var int
-     */
-    protected $cacheDuration = 0;
-
-    /**
      * Cache instance.
      *
      * @var Cache
@@ -84,29 +65,18 @@ class ApiService
     protected $cache;
 
     /**
+     * Default cache duration.
+     *
+     * @var int
+     */
+    protected $defaultCacheDuration = 0;
+
+    /**
      * Swagger generated ApiClient instance.
      *
      * @var ApiClient
      */
     protected $apiClient;
-
-    /**
-     * Wrappers
-     */
-    protected $accidentStatsWrapper;
-    protected $airQualityWrapper;
-    protected $bikePointWrapper;
-    protected $cabwiseWrapper;
-    protected $journeyWrapper;
-    protected $lineWrapper;
-    protected $modeWrapper;
-    protected $occupancyWrapper;
-    protected $placeWrapper;
-    protected $roadWrapper;
-    protected $searchWrapper;
-    protected $travelTimeWrapper;
-    protected $stopPointWrapper;
-    protected $vehicleWrapper;
 
     /**
      * ApiService constructor.
@@ -201,202 +171,6 @@ class ApiService
     }
 
     /**
-     * Get AccidentStats API
-     *
-     * @return ProxyCache
-     */
-    public function accidentStats()
-    {
-        if ( ! $this->accidentStatsWrapper) {
-            $this->accidentStatsWrapper = new AccidentStatsWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->accidentStatsWrapper);
-    }
-
-    /**
-     * Get AirQuality API
-     *
-     * @return ProxyCache
-     */
-    public function airQuality()
-    {
-        if ( ! $this->airQualityWrapper) {
-            $this->airQualityWrapper = new AirQualityWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->airQualityWrapper);
-    }
-
-    /**
-     * Get BikePoint API
-     *
-     * @return ProxyCache
-     */
-    public function bikePoint()
-    {
-        if ( ! $this->bikePointWrapper) {
-            $this->bikePointWrapper = new BikePointWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->bikePointWrapper);
-    }
-
-    /**
-     * Get CabWise API
-     *
-     * @return ProxyCache
-     */
-    public function cabwise()
-    {
-        if ( ! $this->cabwiseWrapper) {
-            $this->cabwiseWrapper = new CabwiseWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->cabwiseWrapper);
-    }
-
-    /**
-     * Get Journey API
-     *
-     * @return ProxyCache
-     */
-    public function journey()
-    {
-        if ( ! $this->journeyWrapper) {
-            $this->journeyWrapper = new JourneyWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->journeyWrapper);
-    }
-
-    /**
-     * Get Line API
-     *
-     * @return ProxyCache
-     */
-    public function line()
-    {
-        if ( ! $this->lineWrapper) {
-            $this->lineWrapper = new LineWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->lineWrapper);
-    }
-
-    /**
-     * Get Mode API
-     *
-     * @return ProxyCache
-     */
-    public function mode()
-    {
-        if ( ! $this->modeWrapper) {
-            $this->modeWrapper = new ModeWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->modeWrapper);
-    }
-
-    /**
-     * Get Occupancy API
-     *
-     * @return ProxyCache
-     */
-    public function occupancy()
-    {
-        if ( ! $this->occupancyWrapper) {
-            $this->occupancyWrapper = new OccupancyWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->occupancyWrapper);
-    }
-
-    /**
-     * Get Place API
-     *
-     * @return ProxyCache
-     */
-    public function place()
-    {
-        if ( ! $this->placeWrapper) {
-            $this->placeWrapper = new PlaceWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->placeWrapper);
-    }
-
-    /**
-     * Get Road API
-     *
-     * @return ProxyCache
-     */
-    public function road()
-    {
-        if ( ! $this->roadWrapper) {
-            $this->roadWrapper = new RoadWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->roadWrapper);
-    }
-
-    /**
-     * Get Search API
-     *
-     * @return ProxyCache
-     */
-    public function search()
-    {
-        if ( ! $this->searchWrapper) {
-            $this->searchWrapper = new SearchWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->searchWrapper);
-    }
-
-    /**
-     * Get StopPoint API
-     *
-     * @return ProxyCache
-     */
-    public function stopPoint()
-    {
-        if ( ! $this->stopPointWrapper) {
-            $this->stopPointWrapper = new StopPointWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->stopPointWrapper);
-    }
-
-    /**
-     * Get TravelTime API
-     *
-     * @return ProxyCache
-     */
-    public function travelTime()
-    {
-        if ( ! $this->travelTimeWrapper) {
-            $this->travelTimeWrapper = new TravelTimeWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->travelTimeWrapper);
-    }
-
-    /**
-     * Get Vehicle API
-     *
-     * @return ProxyCache
-     */
-    public function vehicle()
-    {
-        if ( ! $this->vehicleWrapper) {
-            $this->vehicleWrapper = new VehicleWrapper($this);
-        }
-
-        return ProxyCache::getInstance($this->getCacheDuration(), $this->vehicleWrapper);
-    }
-
-    /**
      * Get API client instance.
      *
      * @return mixed
@@ -407,36 +181,35 @@ class ApiService
     }
 
     /**
-     * Set current cache duration.
+     * Get WrapperManager instance with specified cache duration.
      *
      * @param int $minutes
-     * @return $this
+     * @return WrapperManager
      */
     public function cached($minutes = 60)
     {
-        $this->setCacheDuration($minutes);
-        return $this;
+        return new WrapperManager($this, $minutes);
     }
 
     /**
-     * Get current cache duration.
+     * Get default cache duration.
      *
      * @return int
      */
-    public function getCacheDuration()
+    public function getDefaultCacheDuration()
     {
-        return $this->cacheDuration;
+        return $this->defaultCacheDuration;
     }
 
     /**
-     * Set current cache duration.
+     * Set default cache duration.
      *
-     * @param int $minutes
+     * @param $minutes
      * @return $this
      */
-    public function setCacheDuration($minutes)
+    public function setDefaultCacheDuration($minutes)
     {
-        $this->cacheDuration = $minutes;
+        $this->defaultCacheDuration = $minutes;
         return $this;
     }
 
@@ -485,7 +258,15 @@ class ApiService
      */
     public function getCached($key, $duration, $callable)
     {
-        return $this->getCache()->tags('tfl')->remember($key, $duration, $callable);
+        $return = null;
+
+        try {
+            $return = $this->getCache()->tags('tfl')->remember($key, $duration, $callable);
+        } catch(\BadMethodCallException $e) {
+            $return = $this->getCache()->remember($key, $duration, $callable);
+        }
+
+        return $return;
     }
 
     /**
@@ -494,7 +275,29 @@ class ApiService
      */
     public function clearCache()
     {
-        $this->getCache()->tags('tfl')->flush();
+        try {
+            $this->getCache()->tags('tfl')->flush();
+        } catch(\BadMethodCallException $e) {
+            $this->getCache()->flush();
+        }
+
         return $this;
+    }
+
+    /**
+     * Pass api calls to wrapper manager instance.
+     *
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     */
+    public function __call($name, $arguments)
+    {
+        if (in_array($name, static::$apiNames)) {
+            return $this->cached($this->getDefaultCacheDuration())
+                ->$name(...$arguments);
+        }
+
+        throw new \BadMethodCallException('Unknown method: ' . $name);
     }
 }

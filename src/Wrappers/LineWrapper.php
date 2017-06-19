@@ -13,6 +13,8 @@ use Abulia\TflUnified\Swagger\ApiException;
  */
 class LineWrapper extends Wrapper
 {
+    const ERROR_INVALID_ROUTE = 1;
+
     /**
      * @var null|LineApi
      */
