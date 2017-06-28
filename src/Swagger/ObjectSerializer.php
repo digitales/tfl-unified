@@ -238,6 +238,15 @@ class ObjectSerializer
         } elseif (strcasecmp(substr($class, -2), '[]') === 0) {
             $subClass = substr($class, 0, -2);
             $values = [];
+
+            /*
+             * This fix is needed for when the API spec states it will return an array but
+             * actually returns only the object when there is only one thing to return.
+             */
+            if ( !is_array($data)) {
+                $data = [$data];
+            }
+
             foreach ($data as $key => $value) {
                 $values[] = self::deserialize($value, $subClass, null);
             }
