@@ -1,5 +1,5 @@
 {
-    "name": "abulia/tfl-unified",
+    "name": "digitales/tfl-unified",
     "description": "Laravel package for accessing TFL's unified API",
     "license": "MIT",
     "keywords": ["laravel", "tfl"],
