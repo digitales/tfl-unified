@@ -29,10 +29,10 @@
     "extra": {
     	"laravel": {
         	"providers": [
-            	"Abulia\TflUnified\TflServiceProvider"
+            	"Abulia\\TflUnified\\TflServiceProvider"
         	],
         	"aliases": {
-            	"Tfl": "Abulia\TflUnified\ApiServiceFacade"
+            	"Tfl": "Abulia\\TflUnified\\ApiServiceFacade"
         	}
     	}
 	},
