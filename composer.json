@@ -26,6 +26,16 @@
             "Tests\\": "tests/"
         }
     },
+    "extra": {
+    	"laravel": {
+        	"providers": [
+            	"Abulia\TflUnified\TflServiceProvider"
+        	],
+        	"aliases": {
+            	"Tfl": "Abulia\TflUnified\ApiServiceFacade"
+        	}
+    	}
+	},
     "require-dev": {
         "phpunit/phpunit": "~5.2"
     }
